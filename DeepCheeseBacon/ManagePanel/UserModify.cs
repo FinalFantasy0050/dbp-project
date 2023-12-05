@@ -32,7 +32,7 @@ namespace deepcheesebacon
 
             LoadComboBox();
 
-            emailText.Text = id;
+            //emailText.Text = id;
             EmailLoad(id);
             emailText.ReadOnly = true;
             PwLoad(id);
@@ -76,42 +76,7 @@ namespace deepcheesebacon
 
         }
 
-        string strconn = "Server=115.85.181.212;Database=s5702003;Uid=s5702003;Pwd=s5702003;Charset=utf8";
-
-        // db에서 department 테이블의 id 값 가져오기
-        private int GetDepId(string depid)
-        {
-            int id = -1;
-
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(strconn))
-                {
-                    con.Open();
-
-                    string query = "SELECT id FROM department WHERE department_name = @dep_name";
-                    MySqlCommand com = new MySqlCommand(query, con);
-                    com.Parameters.AddWithValue("@dep_name", depid);
-
-                    // ExecuteScalar를 사용하여 결과를 가져옴
-                    object objResult = com.ExecuteScalar();
-
-                    if (objResult != null && objResult != DBNull.Value)
-                    {
-                        id = Convert.ToInt32(objResult);
-                    }
-
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("오류발생: " + e.Message);
-            }
-
-            return id;
-        }
-
+     
         private void modifyBtn_Click(object sender, EventArgs e)
         {
             string email = emailText.Text;
@@ -121,7 +86,7 @@ namespace deepcheesebacon
             string pnum = pnumText.Text;
             string addr = addrText.Text;
             string depid = comboBox1.Text;
-            int id = GetDepId(depid);
+            int id = dbManager.GetDepId(depid);
             string date = dateText.Text;
             int role = 0;
 
@@ -143,290 +108,54 @@ namespace deepcheesebacon
             this.Controls.Clear();
             this.Controls.Add(userManage);
         }
+
         private void EmailLoad(string id)
         {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(strconn))
-                {
-                    con.Open();
+            string email = dbManager.Email(id);
+            emailText.Text = email;
 
-                    string query = "SELECT email FROM user WHERE user_id = @id";
-                    MySqlCommand com = new MySqlCommand(query, con);
-                    com.Parameters.AddWithValue("@id", id);
-
-                    object result = com.ExecuteScalar();
-
-                    if (result != null)
-                    {
-                        emailText.Text = result.ToString();
-                    }
-
-                    com.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("오류발생: " + e.Message);
-            }
         }
-
-        private string MaskString(string original)
-        {
-            int length = original.Length;
-            // 길이만큼 * 로 바꿈
-            string maskedString = new string('*', length);
-
-            return maskedString;
-        }
-        private string Pw(string id)
-        {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(strconn))
-                {
-                    con.Open();
-
-                    string query = "SELECT password FROM user WHERE user_id = @id";
-                    MySqlCommand com = new MySqlCommand(query, con);
-                    com.Parameters.AddWithValue("@id", id);
-
-                    object result = com.ExecuteScalar();
-
-                    if (result != null && result != DBNull.Value)
-                    {
-                        // 데이터베이스에서 가져온 값에 대해 마스킹 적용
-                        return MaskString(result.ToString());
-                    }
-
-                    return string.Empty; // 데이터가 없을 경우 빈 문자열 반환 또는 다른 기본값 설정
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("오류발생: " + e.Message);
-                return string.Empty; // 오류 발생 시 빈 문자열 반환 또는 다른 기본값 설정
-            }
-        }
-
         private void PwLoad(string id)
         {
-            string result = Pw(id);
+            string result = dbManager.Pw(id);
             pwText.Text = result;
         }
 
         private void NameLoad(string id)
         {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(strconn))
-                {
-                    con.Open();
-
-                    string query = "SELECT name FROM user WHERE user_id = @id";
-                    MySqlCommand com = new MySqlCommand(query, con);
-                    com.Parameters.AddWithValue("@id", id);
-
-                    object result = com.ExecuteScalar();
-
-                    if (result != null)
-                    {
-                        nameText.Text = result.ToString();
-                    }
-
-                    com.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("오류발생: " + e.Message);
-            }
+            string name = dbManager.Name(id);
+            nameText.Text = name;
         }
-
         private void DateLoad(string id)
         {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(strconn))
-                {
-                    con.Open();
-
-                    string query = "SELECT DATE_FORMAT(birthDate,'%Y-%m-%d') FROM user WHERE user_id = @id";
-                    MySqlCommand com = new MySqlCommand(query, con);
-                    com.Parameters.AddWithValue("@id", id);
-
-                    object result = com.ExecuteScalar();
-
-                    if (result != null)
-                    {
-                        dateText.Text = result.ToString();
-                    }
-
-                    com.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("오류발생: " + e.Message);
-            }
+            string date = dbManager.Date(id);
+            dateText.Text = date;
         }
         private void GenderLoad(string id)
         {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(strconn))
-                {
-                    con.Open();
-
-                    string query = "SELECT gender FROM user WHERE user_id = @id";
-                    MySqlCommand com = new MySqlCommand(query, con);
-                    com.Parameters.AddWithValue("@id", id);
-
-                    object result = com.ExecuteScalar();
-
-                    if (result != null)
-                    {
-                        genderText.Text = result.ToString();
-                    }
-
-                    com.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("오류발생: " + e.Message);
-            }
+            string gender = dbManager.Gender(id);
+            genderText.Text = gender;
         }
-
         private void RoleLoad(string id)
         {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(strconn))
-                {
-                    con.Open();
+            string role = dbManager.Role(id);
+            roleText.Text = role;
 
-                    string query = "SELECT user_role FROM user WHERE user_id = @id";
-                    MySqlCommand com = new MySqlCommand(query, con);
-                    com.Parameters.AddWithValue("@id", id);
-
-                    object result = com.ExecuteScalar();
-
-                    if (result != null)
-                    {
-
-                        if ((int)result == 0)
-                        {
-                            roleText.Text = "원장";
-                        }
-                        else if ((int)result == 1)
-                        {
-                            roleText.Text = "강사";
-                        }
-                        else if ((int)result == 2)
-                        {
-                            roleText.Text = "보조강사";
-                        }
-                    }
-
-                    com.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("오류발생: " + e.Message);
-            }
         }
-
         private void DepLoad(string id)
         {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(strconn))
-                {
-                    con.Open();
-
-                    string query = "SELECT department_name FROM department WHERE id IN (SELECT department FROM user WHERE user_id = @id)";
-                    MySqlCommand com = new MySqlCommand(query, con);
-                    com.Parameters.AddWithValue("@id", id);
-
-                    object result = com.ExecuteScalar();
-
-                    if (result != null)
-                    {
-                        comboBox1.Text = result.ToString();
-                    }
-
-                    com.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("오류발생: " + e.Message);
-            }
+            string dep = dbManager.Dep(id);
+            comboBox1.Text = dep;
         }
         private void PnumLoad(string id)
         {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(strconn))
-                {
-                    con.Open();
-
-                    string query = "SELECT phone_number FROM user WHERE user_id = @id";
-                    MySqlCommand com = new MySqlCommand(query, con);
-                    com.Parameters.AddWithValue("@id", id);
-
-                    object result = com.ExecuteScalar();
-
-                    if (result != null)
-                    {
-                        pnumText.Text = result.ToString();
-                    }
-
-                    com.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("오류발생: " + e.Message);
-            }
+            string pnum = dbManager.Pnum(id);
+            pnumText.Text = pnum;
         }
-
         private void AddrLoad(string id)
         {
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(strconn))
-                {
-                    con.Open();
-
-                    string query = "SELECT address FROM user WHERE user_id = @id";
-                    MySqlCommand com = new MySqlCommand(query, con);
-                    com.Parameters.AddWithValue("@id", id);
-
-                    object result = com.ExecuteScalar();
-
-                    if (result != null)
-                    {
-                        addrText.Text = result.ToString();
-                    }
-
-                    com.ExecuteNonQuery();
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("오류발생: " + e.Message);
-            }
+            string addr = dbManager.Addr(id);
+            addrText.Text = addr;
         }
 
         private void emailText_Enter(object sender, EventArgs e)

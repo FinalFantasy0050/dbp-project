@@ -145,6 +145,8 @@ namespace deepcheesebacon
             departmentText.Text = row.Cells[3].Value.ToString();
         }
 
+
+
         private void SubjectManage_Load(object sender, EventArgs e)
         {
 

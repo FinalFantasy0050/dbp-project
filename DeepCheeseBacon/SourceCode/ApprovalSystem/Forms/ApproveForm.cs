@@ -8,6 +8,7 @@ using System.Windows.Forms;
 using deepcheesebacon.SourceCode.ApprovalSystem;
 using deepcheesebacon.SourceCode.ApprovalSystem.Models;
 using deepcheesebacon;
+using WebSocketSharp;
 
 namespace deepcheesebacon
 {
@@ -43,7 +44,7 @@ namespace deepcheesebacon
 
             foreach (Approval approval in pendingApprovalList)
             {
-                listBoxTaskRequiringMyApprovalList.Items.Add(new PendingApprovalItem(approval.Title, approval.Id));
+                listBoxTaskRequiringMyApprovalList.Items.Add(approval);
             }
         }
 
@@ -62,6 +63,17 @@ namespace deepcheesebacon
 
             if (selectedApproval != null)
             {
+                if(!textBoxComment.Text.IsNullOrEmpty())
+                {
+                    if(selectedApproval.Comment.IsNullOrEmpty())
+                    {
+                        selectedApproval.Comment = $"{LoginedUserInfo.loginedUserInfo.email}: " + textBoxComment.Text + "\n";
+                    }
+                    else
+                    {
+                        selectedApproval.Comment += $"{LoginedUserInfo.loginedUserInfo.email}: " + textBoxComment.Text + "\n";
+                    }
+                }
                 approvalService.ApproveRequest(
                 new ApprovalApproveRequest()
                 {
@@ -122,6 +134,29 @@ namespace deepcheesebacon
             LoadTaskRequiringMyApprovalList();
             SetLabelDateTime();
 
+        }
+
+        private void listBoxTaskRequiringMyApprovalList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (listBoxTaskRequiringMyApprovalList.SelectedIndex != -1)
+            {
+                Approval? approval = listBoxTaskRequiringMyApprovalList.SelectedItem as Approval;
+
+                if (approval != null)
+                {
+                    listBoxTaskDetail.Items.Clear();
+
+                    listBoxTaskDetail.Items.Add($"Title: {approval.Title}");
+                    listBoxTaskDetail.Items.Add($"Description: {approval.Description}");
+                    listBoxTaskDetail.Items.Add($"Comment: {approval.Comment}");
+                    listBoxTaskDetail.Items.Add($"Related Task: {approval.RelatedTask}");
+                    if (!approval.Memo.IsNullOrEmpty())
+                    {
+                        listBoxTaskDetail.Items.Add($"반려 메모: {approval.Memo}");
+                    }
+                }
+
+            }
         }
     }
 }

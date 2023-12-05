@@ -23,6 +23,11 @@ namespace deepcheesebacon.SourceCode.ApprovalSystem.Models
 
         public string Memo { get; set; } // 반려 시 메모
 
+        public override string ToString()
+        {
+            return $"결재 제목: {Title}";
+        }
+
 
 
 

@@ -31,6 +31,8 @@ namespace deepcheesebacon
         private void InitializeComponent()
         {
             customGroupBox1 = new CustomGroupBox();
+            label1 = new Label();
+            textBoxTitle = new TextBox();
             textBoxInputMessage = new TextBox();
             buttonRefresh = new ImageButton();
             buttonSendMessage = new CustomButtonStyle();
@@ -41,16 +43,16 @@ namespace deepcheesebacon
             // customGroupBox1
             // 
             customGroupBox1.BackColor = Color.Transparent;
+            customGroupBox1.Controls.Add(label1);
+            customGroupBox1.Controls.Add(textBoxTitle);
             customGroupBox1.Controls.Add(textBoxInputMessage);
             customGroupBox1.Controls.Add(buttonRefresh);
             customGroupBox1.Controls.Add(buttonSendMessage);
             customGroupBox1.Controls.Add(listBoxChatBox);
-            customGroupBox1.Location = new Point(33, 27);
-            customGroupBox1.Margin = new Padding(4);
+            customGroupBox1.Location = new Point(26, 20);
             customGroupBox1.Name = "customGroupBox1";
-            customGroupBox1.Padding = new Padding(4);
             customGroupBox1.Radious = 25;
-            customGroupBox1.Size = new Size(953, 546);
+            customGroupBox1.Size = new Size(741, 410);
             customGroupBox1.TabIndex = 28;
             customGroupBox1.TabStop = false;
             customGroupBox1.Text = "Message";
@@ -59,16 +61,34 @@ namespace deepcheesebacon
             customGroupBox1.TitleForeColor = Color.White;
             customGroupBox1.TitleHatchStyle = System.Drawing.Drawing2D.HatchStyle.Percent60;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(9, 336);
+            label1.Name = "label1";
+            label1.Size = new Size(31, 15);
+            label1.TabIndex = 32;
+            label1.Text = "제목";
+            // 
+            // textBoxTitle
+            // 
+            textBoxTitle.Location = new Point(46, 333);
+            textBoxTitle.Name = "textBoxTitle";
+            textBoxTitle.Size = new Size(290, 23);
+            textBoxTitle.TabIndex = 31;
+            // 
             // textBoxInputMessage
             // 
             textBoxInputMessage.BorderStyle = BorderStyle.None;
             textBoxInputMessage.Font = new Font("맑은 고딕", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxInputMessage.Location = new Point(11, 500);
+            textBoxInputMessage.Location = new Point(9, 375);
+            textBoxInputMessage.Margin = new Padding(2);
             textBoxInputMessage.Multiline = true;
             textBoxInputMessage.Name = "textBoxInputMessage";
             textBoxInputMessage.PlaceholderText = "채팅을 입력해주세요!";
-            textBoxInputMessage.Size = new Size(830, 36);
+            textBoxInputMessage.Size = new Size(646, 27);
             textBoxInputMessage.TabIndex = 30;
+            textBoxInputMessage.TextChanged += textBoxInputMessage_TextChanged;
             // 
             // buttonRefresh
             // 
@@ -76,9 +96,10 @@ namespace deepcheesebacon
             buttonRefresh.BackgroundImageLayout = ImageLayout.Zoom;
             buttonRefresh.Image_01 = Properties.Resources.refresh;
             buttonRefresh.Image_02 = Properties.Resources.refreshoption;
-            buttonRefresh.Location = new Point(915, 5);
+            buttonRefresh.Location = new Point(712, 4);
+            buttonRefresh.Margin = new Padding(2);
             buttonRefresh.Name = "buttonRefresh";
-            buttonRefresh.Size = new Size(29, 32);
+            buttonRefresh.Size = new Size(23, 24);
             buttonRefresh.TabIndex = 29;
             buttonRefresh.Click += buttonRefresh_Click;
             // 
@@ -91,10 +112,9 @@ namespace deepcheesebacon
             buttonSendMessage.BorderSize = 2;
             buttonSendMessage.FlatStyle = FlatStyle.Flat;
             buttonSendMessage.ForeColor = Color.DarkBlue;
-            buttonSendMessage.Location = new Point(843, 500);
-            buttonSendMessage.Margin = new Padding(4);
+            buttonSendMessage.Location = new Point(656, 375);
             buttonSendMessage.Name = "buttonSendMessage";
-            buttonSendMessage.Size = new Size(102, 36);
+            buttonSendMessage.Size = new Size(79, 27);
             buttonSendMessage.TabIndex = 8;
             buttonSendMessage.Text = "전송";
             buttonSendMessage.TextColor = Color.DarkBlue;
@@ -104,20 +124,18 @@ namespace deepcheesebacon
             // listBoxChatBox
             // 
             listBoxChatBox.FormattingEnabled = true;
-            listBoxChatBox.ItemHeight = 20;
-            listBoxChatBox.Location = new Point(11, 52);
-            listBoxChatBox.Margin = new Padding(4);
+            listBoxChatBox.ItemHeight = 15;
+            listBoxChatBox.Location = new Point(9, 39);
             listBoxChatBox.Name = "listBoxChatBox";
-            listBoxChatBox.Size = new Size(934, 444);
+            listBoxChatBox.Size = new Size(727, 274);
             listBoxChatBox.TabIndex = 6;
             // 
             // MessageDetailForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1029, 600);
+            ClientSize = new Size(800, 450);
             Controls.Add(customGroupBox1);
-            Margin = new Padding(4);
             Name = "MessageDetailForm";
             customGroupBox1.ResumeLayout(false);
             customGroupBox1.PerformLayout();
@@ -130,5 +148,7 @@ namespace deepcheesebacon
         private TextBox textBoxInputMessage;
         private ListBox listBoxChatBox;
         private ImageButton buttonRefresh;
+        private Label label1;
+        private TextBox textBoxTitle;
     }
 }

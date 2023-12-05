@@ -70,22 +70,12 @@ namespace deepcheesebacon.SourceCode.MessageSystem.Forms
 
         private void buttonSearchByContent_Click(object sender, EventArgs e)
         {
-            if (!textBoxContent.Texts.IsNullOrEmpty() && !textBoxEmail.Texts.IsNullOrEmpty())
-            {
-                MessageBox.Show("한 개의 항목만 적어주세요");
-                return;
-            }
-            else if (textBoxContent.Texts.IsNullOrEmpty() && textBoxEmail.Texts.IsNullOrEmpty())
-            {
-                MessageBox.Show("검색할 항목을 적어주세요.");
-                return;
-            }
 
-            if (textBoxContent.Texts.IsNullOrEmpty() && !textBoxEmail.Texts.IsNullOrEmpty())
+            if (textBoxContent.Texts.IsNullOrEmpty() && !textBoxEmail.Texts.IsNullOrEmpty() && textBoxTitle.Texts.IsNullOrEmpty())
             {
                 SearchByTitle();
             }
-            else
+            else if (!textBoxContent.Texts.IsNullOrEmpty() && textBoxEmail.Texts.IsNullOrEmpty() && textBoxTitle.Texts.IsNullOrEmpty())
             {
                 listBoxMessage.Items.Clear();
 
@@ -97,7 +87,27 @@ namespace deepcheesebacon.SourceCode.MessageSystem.Forms
                     }
                 }
                 MessageBox.Show("검색 성공하였습니다!");
+            }
+            else if (textBoxContent.Texts.IsNullOrEmpty() && textBoxEmail.Texts.IsNullOrEmpty() && !textBoxTitle.Texts.IsNullOrEmpty())
+            {
+                listBoxMessage.Items.Clear();
 
+                foreach (Message message in messages)
+                {
+                    if(message.title != null)
+                    {
+                        if (message.title.Contains(textBoxTitle.Texts))
+                        {
+                            listBoxMessage.Items.Add(message);
+                        }
+                    }
+                    
+                }
+                MessageBox.Show("검색 성공하였습니다!");
+            }
+            else
+            {
+                MessageBox.Show("하나의 텍스트를 입력하여 주십시오.");
             }
         }
     }

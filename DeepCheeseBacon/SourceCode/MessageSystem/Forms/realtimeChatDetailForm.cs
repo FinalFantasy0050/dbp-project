@@ -37,7 +37,7 @@ namespace deepcheesebacon.SourceCode.MessageSystem.Forms
             string testUrl = "ws://localhost:9090/ws/chat";
 
             // WebSocket 서버 주소
-            Uri serverUri = new Uri(url);
+            Uri serverUri = new Uri(testUrl);
 
             try
             {
@@ -176,6 +176,11 @@ namespace deepcheesebacon.SourceCode.MessageSystem.Forms
         private void realtimeChatDetailForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             CloseWebSocketAsync();
+        }
+
+        private void textBoxInputMessage_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

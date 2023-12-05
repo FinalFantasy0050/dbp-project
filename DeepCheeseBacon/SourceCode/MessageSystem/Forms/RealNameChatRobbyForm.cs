@@ -4,33 +4,33 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.DirectoryServices;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace deepcheesebacon
+namespace deepcheesebacon.SourceCode.ApprovalSystem.Forms
 {
-    public partial class realtimeChatRobby : Form
+    public partial class RealNameChatRobbyForm : Form
     {
+        public RealNameChatRobbyForm()
+        {
+            InitializeComponent();
+            LoadChatList();
+
+        }
+
         List<ChatRoom> chatRooms;
         ChatRoom tempChatRoom;
         bool isFirst = true;
 
-        public realtimeChatRobby()
-        {
-            InitializeComponent();
-            LoadChatList();
-        }
-
         async Task LoadChatList()
         {
-            await Task.Delay(1000); // 3초 지연
+            await Task.Delay(1000); //  1초 지연
 
             // ChatRooms를 비동기적으로 받아옴
-            chatRooms = await ApiManager.GetChatRoomsAsync();
+            chatRooms = await ApiManager.GetChatSecretRoomsAsync();
 
             listBoxMessageList.Items.Clear();
 
@@ -50,31 +50,11 @@ namespace deepcheesebacon
             }
         }
 
-        private void listBoxMessageList_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (listBoxMessageList.SelectedIndex != -1)
-            {
-                if (textBoxNickName.Texts == null || textBoxNickName.Texts.Equals(""))
-                {
-                    MessageBox.Show("사용할 별명을 입력해주세요");
-                    return;
-                }
-
-                realtimeChatDetailForm form = new realtimeChatDetailForm(((ChatRoom)listBoxMessageList.SelectedItem).RoomId, textBoxNickName.Texts);
-                form.ShowDialog();
-            }
-        }
-
-        private async void buttonCreateChatRoom_ClickAsync(object sender, EventArgs e)
-        {
-            CreateButtonClick();
-        }
-
         private async Task CreateButtonClick()
         {
             if (textBoxRoomName.Texts != null && !textBoxRoomName.Texts.Equals(""))
             {
-                tempChatRoom = await ApiManager.CreateChatRoomAsync(textBoxRoomName.Texts);
+                tempChatRoom = await ApiManager.CreateChatSecretRoomAsync(textBoxRoomName.Texts);
 
                 LoadChatList();
                 textBoxRoomName.ClearText();
@@ -86,8 +66,18 @@ namespace deepcheesebacon
             }
         }
 
-        private void realtimeChatRobby_FormClosing(object sender, FormClosingEventArgs e)
+        private void listBoxMessageList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (listBoxMessageList.SelectedIndex != -1)
+            {
+                realtimeChatDetailForm form = new realtimeChatDetailForm(((ChatRoom)listBoxMessageList.SelectedItem).RoomId, LoginedUserInfo.loginedUserInfo.email);
+                form.ShowDialog();
+            }
+        }
+
+        private void buttonCreateChatRoom_Click(object sender, EventArgs e)
+        {
+            CreateButtonClick();
         }
     }
 }

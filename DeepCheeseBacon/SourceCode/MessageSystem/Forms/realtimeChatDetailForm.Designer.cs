@@ -40,11 +40,10 @@ namespace deepcheesebacon.SourceCode.MessageSystem.Forms
             // listBoxChatBox
             // 
             listBoxChatBox.FormattingEnabled = true;
-            listBoxChatBox.ItemHeight = 20;
-            listBoxChatBox.Location = new Point(11, 52);
-            listBoxChatBox.Margin = new Padding(4);
+            listBoxChatBox.ItemHeight = 15;
+            listBoxChatBox.Location = new Point(9, 39);
             listBoxChatBox.Name = "listBoxChatBox";
-            listBoxChatBox.Size = new Size(934, 444);
+            listBoxChatBox.Size = new Size(727, 334);
             listBoxChatBox.TabIndex = 6;
             // 
             // buttonSendMessage
@@ -56,10 +55,9 @@ namespace deepcheesebacon.SourceCode.MessageSystem.Forms
             buttonSendMessage.BorderSize = 2;
             buttonSendMessage.FlatStyle = FlatStyle.Flat;
             buttonSendMessage.ForeColor = Color.DarkBlue;
-            buttonSendMessage.Location = new Point(843, 500);
-            buttonSendMessage.Margin = new Padding(4);
+            buttonSendMessage.Location = new Point(656, 375);
             buttonSendMessage.Name = "buttonSendMessage";
-            buttonSendMessage.Size = new Size(102, 36);
+            buttonSendMessage.Size = new Size(79, 27);
             buttonSendMessage.TabIndex = 8;
             buttonSendMessage.Text = "전송";
             buttonSendMessage.TextColor = Color.DarkBlue;
@@ -72,12 +70,10 @@ namespace deepcheesebacon.SourceCode.MessageSystem.Forms
             customGroupBox1.Controls.Add(textBoxInputMessage);
             customGroupBox1.Controls.Add(buttonSendMessage);
             customGroupBox1.Controls.Add(listBoxChatBox);
-            customGroupBox1.Location = new Point(40, 26);
-            customGroupBox1.Margin = new Padding(4);
+            customGroupBox1.Location = new Point(31, 20);
             customGroupBox1.Name = "customGroupBox1";
-            customGroupBox1.Padding = new Padding(4);
             customGroupBox1.Radious = 25;
-            customGroupBox1.Size = new Size(953, 546);
+            customGroupBox1.Size = new Size(741, 410);
             customGroupBox1.TabIndex = 27;
             customGroupBox1.TabStop = false;
             customGroupBox1.Text = "실시간 채팅";
@@ -90,20 +86,21 @@ namespace deepcheesebacon.SourceCode.MessageSystem.Forms
             // 
             textBoxInputMessage.BorderStyle = BorderStyle.None;
             textBoxInputMessage.Font = new Font("맑은 고딕", 11F, FontStyle.Regular, GraphicsUnit.Point);
-            textBoxInputMessage.Location = new Point(11, 500);
+            textBoxInputMessage.Location = new Point(9, 375);
+            textBoxInputMessage.Margin = new Padding(2, 2, 2, 2);
             textBoxInputMessage.Multiline = true;
             textBoxInputMessage.Name = "textBoxInputMessage";
             textBoxInputMessage.PlaceholderText = "채팅을 입력해주세요!";
-            textBoxInputMessage.Size = new Size(830, 36);
+            textBoxInputMessage.Size = new Size(646, 27);
             textBoxInputMessage.TabIndex = 31;
+            textBoxInputMessage.TextChanged += textBoxInputMessage_TextChanged;
             // 
             // realtimeChatDetailForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1029, 600);
+            ClientSize = new Size(800, 450);
             Controls.Add(customGroupBox1);
-            Margin = new Padding(4);
             Name = "realtimeChatDetailForm";
             Text = "realtimeChatDetailForm";
             FormClosing += realtimeChatDetailForm_FormClosing;

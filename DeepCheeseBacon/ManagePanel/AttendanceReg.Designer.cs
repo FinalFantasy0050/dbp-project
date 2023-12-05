@@ -31,7 +31,6 @@
             dateTimePicker1 = new DateTimePicker();
             GoWorkBtn = new Button();
             OffWorkBtn = new Button();
-            UserNameText = new TextBox();
             dataGridView2 = new DataGridView();
             ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
             SuspendLayout();
@@ -63,14 +62,6 @@
             OffWorkBtn.UseVisualStyleBackColor = true;
             OffWorkBtn.Click += OffWorkBtn_Click;
             // 
-            // UserNameText
-            // 
-            UserNameText.Location = new Point(461, 173);
-            UserNameText.Multiline = true;
-            UserNameText.Name = "UserNameText";
-            UserNameText.Size = new Size(138, 34);
-            UserNameText.TabIndex = 46;
-            // 
             // dataGridView2
             // 
             dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -84,7 +75,6 @@
             // 
             AutoScaleDimensions = new SizeF(9F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(UserNameText);
             Controls.Add(dataGridView2);
             Controls.Add(OffWorkBtn);
             Controls.Add(GoWorkBtn);
@@ -93,14 +83,12 @@
             Size = new Size(879, 653);
             ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
         private DateTimePicker dateTimePicker1;
         private Button GoWorkBtn;
         private Button OffWorkBtn;
-        private TextBox UserNameText;
         private DataGridView dataGridView2;
     }
 }

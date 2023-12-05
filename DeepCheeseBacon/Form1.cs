@@ -20,13 +20,11 @@ namespace deepcheesebacon
 
         private void MenuColor(object sender)
         {
-            // 이전에 클릭한 메뉴 있으면 색 원래대로 복원
             if (lastClickedItem != null)
             {
                 lastClickedItem.BackColor = Color.SteelBlue;
             }
 
-            // 새로 클릭한 메뉴 배경색 변경
             Button menu = (Button)sender;
             menu.BackColor = Color.SkyBlue;
             lastClickedItem = menu;
@@ -36,7 +34,6 @@ namespace deepcheesebacon
         {
             MenuColor((Button)sender);
 
-            // 기존 판넬에 있는 판넬 지우고 userReg 띄움
             pMain.Controls.Clear();
             pMain.Controls.Add(userReg);
         }
@@ -45,7 +42,6 @@ namespace deepcheesebacon
         {
             MenuColor((Button)sender);
 
-            // 기존 판넬에 있는 판넬 지우고 userManage 띄움
             pMain.Controls.Clear();
             pMain.Controls.Add(userManage);
         }
@@ -54,7 +50,6 @@ namespace deepcheesebacon
         {
             MenuColor((Button)sender);
 
-            // 기존 판넬에 있는 판넬 지우고 subjectManage 띄움
             pMain.Controls.Clear();
             pMain.Controls.Add(subjectManage);
 
@@ -64,7 +59,6 @@ namespace deepcheesebacon
         {
             MenuColor((Button)sender);
 
-            // 기존 판넬에 있는 판넬 지우고 salary 띄움
             pMain.Controls.Clear();
             pMain.Controls.Add(salary);
         }
@@ -73,7 +67,6 @@ namespace deepcheesebacon
         {
             MenuColor((Button)sender);
 
-            // 기존 판넬에 있는 판넬 지우고  attendanceReg 띄움
             pMain.Controls.Clear();
             pMain.Controls.Add(attendanceView);
         }
@@ -83,7 +76,6 @@ namespace deepcheesebacon
 
             MenuColor((Button)sender);
 
-            // 기존 판넬에 있는 판넬 지우고  attendanceReg 띄움
             pMain.Controls.Clear();
             pMain.Controls.Add(attendanceReg);
         }

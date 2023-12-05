@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using deepcheesebacon.SourceCode.MessageSystem.Forms;
+using deepcheesebacon.SourceCode.ApprovalSystem.Forms;
 
 namespace deepcheesebacon
 {
@@ -67,6 +68,12 @@ namespace deepcheesebacon
         private void customButtonStyle1_Click(object sender, EventArgs e)
         {
             MessageInBoxForm form = new MessageInBoxForm();
+            form.ShowDialog();
+        }
+
+        private void buttonRealNameChat_Click(object sender, EventArgs e)
+        {
+            RealNameChatRobbyForm form = new RealNameChatRobbyForm();
             form.ShowDialog();
         }
     }

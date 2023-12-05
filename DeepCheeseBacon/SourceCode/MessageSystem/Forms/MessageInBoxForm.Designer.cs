@@ -32,16 +32,16 @@
             buttonSearchByContent = new Customizing.CustomButtonStyle();
             textBoxEmail = new Customizing.CustomTextBox();
             textBoxContent = new Customizing.CustomTextBox();
+            textBoxTitle = new Customizing.CustomTextBox();
             SuspendLayout();
             // 
             // listBoxMessage
             // 
             listBoxMessage.FormattingEnabled = true;
-            listBoxMessage.ItemHeight = 20;
-            listBoxMessage.Location = new Point(15, 76);
-            listBoxMessage.Margin = new Padding(4);
+            listBoxMessage.ItemHeight = 15;
+            listBoxMessage.Location = new Point(12, 87);
             listBoxMessage.Name = "listBoxMessage";
-            listBoxMessage.Size = new Size(618, 444);
+            listBoxMessage.Size = new Size(482, 304);
             listBoxMessage.TabIndex = 0;
             // 
             // buttonSearchByContent
@@ -53,10 +53,9 @@
             buttonSearchByContent.BorderSize = 0;
             buttonSearchByContent.FlatStyle = FlatStyle.Flat;
             buttonSearchByContent.ForeColor = Color.White;
-            buttonSearchByContent.Location = new Point(546, 22);
-            buttonSearchByContent.Margin = new Padding(4);
+            buttonSearchByContent.Location = new Point(425, 16);
             buttonSearchByContent.Name = "buttonSearchByContent";
-            buttonSearchByContent.Size = new Size(87, 37);
+            buttonSearchByContent.Size = new Size(68, 65);
             buttonSearchByContent.TabIndex = 8;
             buttonSearchByContent.Text = "검색";
             buttonSearchByContent.TextColor = Color.White;
@@ -72,14 +71,15 @@
             textBoxEmail.BorderSize = 2;
             textBoxEmail.Font = new Font("맑은 고딕", 9.5F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxEmail.ForeColor = Color.DimGray;
-            textBoxEmail.Location = new Point(15, 22);
+            textBoxEmail.Location = new Point(31, 53);
+            textBoxEmail.Margin = new Padding(2);
             textBoxEmail.Multiline = false;
             textBoxEmail.Name = "textBoxEmail";
-            textBoxEmail.Padding = new Padding(10, 7, 10, 7);
+            textBoxEmail.Padding = new Padding(8, 5, 8, 5);
             textBoxEmail.PasswordChar = false;
             textBoxEmail.PlaceholderColor = Color.DarkGray;
             textBoxEmail.PlaceholderText = "보낸사람의 이메일을 입력하세요.";
-            textBoxEmail.Size = new Size(271, 36);
+            textBoxEmail.Size = new Size(388, 28);
             textBoxEmail.TabIndex = 9;
             textBoxEmail.Texts = "";
             textBoxEmail.UnderlinedStyle = true;
@@ -93,28 +93,51 @@
             textBoxContent.BorderSize = 2;
             textBoxContent.Font = new Font("맑은 고딕", 9.5F, FontStyle.Regular, GraphicsUnit.Point);
             textBoxContent.ForeColor = Color.DimGray;
-            textBoxContent.Location = new Point(292, 22);
+            textBoxContent.Location = new Point(227, 16);
+            textBoxContent.Margin = new Padding(2);
             textBoxContent.Multiline = false;
             textBoxContent.Name = "textBoxContent";
-            textBoxContent.Padding = new Padding(10, 7, 10, 7);
+            textBoxContent.Padding = new Padding(8, 5, 8, 5);
             textBoxContent.PasswordChar = false;
             textBoxContent.PlaceholderColor = Color.DarkGray;
             textBoxContent.PlaceholderText = "내용을 입력하세요.";
-            textBoxContent.Size = new Size(247, 36);
+            textBoxContent.Size = new Size(192, 28);
             textBoxContent.TabIndex = 10;
             textBoxContent.Texts = "";
             textBoxContent.UnderlinedStyle = true;
             // 
+            // textBoxTitle
+            // 
+            textBoxTitle.BackColor = SystemColors.Window;
+            textBoxTitle.BorderColor = Color.FromArgb(50, 122, 217);
+            textBoxTitle.BorderFocusColor = Color.FromArgb(4, 96, 217);
+            textBoxTitle.BorderRadius = 0;
+            textBoxTitle.BorderSize = 2;
+            textBoxTitle.Font = new Font("맑은 고딕", 9.5F, FontStyle.Regular, GraphicsUnit.Point);
+            textBoxTitle.ForeColor = Color.DimGray;
+            textBoxTitle.Location = new Point(31, 16);
+            textBoxTitle.Margin = new Padding(2);
+            textBoxTitle.Multiline = false;
+            textBoxTitle.Name = "textBoxTitle";
+            textBoxTitle.Padding = new Padding(8, 5, 8, 5);
+            textBoxTitle.PasswordChar = false;
+            textBoxTitle.PlaceholderColor = Color.DarkGray;
+            textBoxTitle.PlaceholderText = "제목을 입력하세요.";
+            textBoxTitle.Size = new Size(192, 28);
+            textBoxTitle.TabIndex = 11;
+            textBoxTitle.Texts = "";
+            textBoxTitle.UnderlinedStyle = true;
+            // 
             // MessageInBoxForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(648, 533);
+            ClientSize = new Size(504, 400);
+            Controls.Add(textBoxTitle);
             Controls.Add(textBoxContent);
             Controls.Add(textBoxEmail);
             Controls.Add(buttonSearchByContent);
             Controls.Add(listBoxMessage);
-            Margin = new Padding(4);
             Name = "MessageInBoxForm";
             Text = "MessageInBoxForm";
             ResumeLayout(false);
@@ -126,5 +149,6 @@
         private Customizing.CustomButtonStyle buttonSearchByContent;
         private Customizing.CustomTextBox textBoxEmail;
         private Customizing.CustomTextBox textBoxContent;
+        private Customizing.CustomTextBox textBoxTitle;
     }
 }

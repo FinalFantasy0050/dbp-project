@@ -23,7 +23,9 @@ namespace deepcheesebacon
         }
 
         private void Salary_Load(object sender, EventArgs e)
-        {        }
+        {
+
+        }
 
         private void prt_btn_Click(object sender, EventArgs e)
         {

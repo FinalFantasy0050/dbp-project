@@ -36,7 +36,11 @@ namespace deepcheesebacon
             labelDateTime = new Label();
             customGroupBox1 = new CustomGroupBox();
             customGroupBox2 = new CustomGroupBox();
+            listBoxTaskDetail = new ListBox();
+            textBoxComment = new TextBox();
+            label1 = new Label();
             customGroupBox1.SuspendLayout();
+            customGroupBox2.SuspendLayout();
             SuspendLayout();
             // 
             // buttonRejectApproval
@@ -49,10 +53,9 @@ namespace deepcheesebacon
             buttonRejectApproval.FlatStyle = FlatStyle.Flat;
             buttonRejectApproval.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point);
             buttonRejectApproval.ForeColor = Color.White;
-            buttonRejectApproval.Location = new Point(731, 547);
-            buttonRejectApproval.Margin = new Padding(4);
+            buttonRejectApproval.Location = new Point(569, 410);
             buttonRejectApproval.Name = "buttonRejectApproval";
-            buttonRejectApproval.Size = new Size(96, 35);
+            buttonRejectApproval.Size = new Size(75, 26);
             buttonRejectApproval.TabIndex = 11;
             buttonRejectApproval.Text = "반려";
             buttonRejectApproval.TextColor = Color.White;
@@ -69,10 +72,9 @@ namespace deepcheesebacon
             buttonApproveApproval.FlatStyle = FlatStyle.Flat;
             buttonApproveApproval.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point);
             buttonApproveApproval.ForeColor = Color.White;
-            buttonApproveApproval.Location = new Point(617, 547);
-            buttonApproveApproval.Margin = new Padding(4);
+            buttonApproveApproval.Location = new Point(480, 410);
             buttonApproveApproval.Name = "buttonApproveApproval";
-            buttonApproveApproval.Size = new Size(96, 35);
+            buttonApproveApproval.Size = new Size(75, 26);
             buttonApproveApproval.TabIndex = 10;
             buttonApproveApproval.Text = "결재";
             buttonApproveApproval.TextColor = Color.White;
@@ -82,20 +84,19 @@ namespace deepcheesebacon
             // listBoxTaskRequiringMyApprovalList
             // 
             listBoxTaskRequiringMyApprovalList.FormattingEnabled = true;
-            listBoxTaskRequiringMyApprovalList.ItemHeight = 20;
-            listBoxTaskRequiringMyApprovalList.Location = new Point(8, 48);
-            listBoxTaskRequiringMyApprovalList.Margin = new Padding(4);
+            listBoxTaskRequiringMyApprovalList.ItemHeight = 15;
+            listBoxTaskRequiringMyApprovalList.Location = new Point(6, 36);
             listBoxTaskRequiringMyApprovalList.Name = "listBoxTaskRequiringMyApprovalList";
-            listBoxTaskRequiringMyApprovalList.Size = new Size(203, 444);
+            listBoxTaskRequiringMyApprovalList.Size = new Size(159, 334);
             listBoxTaskRequiringMyApprovalList.TabIndex = 13;
+            listBoxTaskRequiringMyApprovalList.SelectedIndexChanged += listBoxTaskRequiringMyApprovalList_SelectedIndexChanged;
             // 
             // labelDateTime
             // 
             labelDateTime.AutoSize = true;
-            labelDateTime.Location = new Point(35, 552);
-            labelDateTime.Margin = new Padding(4, 0, 4, 0);
+            labelDateTime.Location = new Point(27, 414);
             labelDateTime.Name = "labelDateTime";
-            labelDateTime.Size = new Size(82, 20);
+            labelDateTime.Size = new Size(66, 15);
             labelDateTime.TabIndex = 14;
             labelDateTime.Text = "결재 시각: ";
             // 
@@ -103,12 +104,10 @@ namespace deepcheesebacon
             // 
             customGroupBox1.BackColor = Color.Transparent;
             customGroupBox1.Controls.Add(listBoxTaskRequiringMyApprovalList);
-            customGroupBox1.Location = new Point(27, 23);
-            customGroupBox1.Margin = new Padding(4);
+            customGroupBox1.Location = new Point(21, 17);
             customGroupBox1.Name = "customGroupBox1";
-            customGroupBox1.Padding = new Padding(4);
             customGroupBox1.Radious = 25;
-            customGroupBox1.Size = new Size(220, 503);
+            customGroupBox1.Size = new Size(171, 377);
             customGroupBox1.TabIndex = 28;
             customGroupBox1.TabStop = false;
             customGroupBox1.Text = "업무 리스트";
@@ -120,12 +119,13 @@ namespace deepcheesebacon
             // customGroupBox2
             // 
             customGroupBox2.BackColor = Color.Transparent;
-            customGroupBox2.Location = new Point(278, 23);
-            customGroupBox2.Margin = new Padding(4);
+            customGroupBox2.Controls.Add(label1);
+            customGroupBox2.Controls.Add(textBoxComment);
+            customGroupBox2.Controls.Add(listBoxTaskDetail);
+            customGroupBox2.Location = new Point(216, 17);
             customGroupBox2.Name = "customGroupBox2";
-            customGroupBox2.Padding = new Padding(4);
             customGroupBox2.Radious = 25;
-            customGroupBox2.Size = new Size(549, 503);
+            customGroupBox2.Size = new Size(427, 377);
             customGroupBox2.TabIndex = 29;
             customGroupBox2.TabStop = false;
             customGroupBox2.Text = "업무 내용";
@@ -134,20 +134,46 @@ namespace deepcheesebacon
             customGroupBox2.TitleForeColor = Color.White;
             customGroupBox2.TitleHatchStyle = System.Drawing.Drawing2D.HatchStyle.Percent60;
             // 
+            // listBoxTaskDetail
+            // 
+            listBoxTaskDetail.FormattingEnabled = true;
+            listBoxTaskDetail.ItemHeight = 15;
+            listBoxTaskDetail.Location = new Point(6, 36);
+            listBoxTaskDetail.Name = "listBoxTaskDetail";
+            listBoxTaskDetail.Size = new Size(415, 304);
+            listBoxTaskDetail.TabIndex = 0;
+            // 
+            // textBoxComment
+            // 
+            textBoxComment.Location = new Point(90, 347);
+            textBoxComment.Name = "textBoxComment";
+            textBoxComment.Size = new Size(331, 23);
+            textBoxComment.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(6, 350);
+            label1.Name = "label1";
+            label1.Size = new Size(78, 15);
+            label1.TabIndex = 30;
+            label1.Text = "결재 코멘트: ";
+            // 
             // ApproveForm
             // 
-            AutoScaleDimensions = new SizeF(9F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(856, 598);
+            ClientSize = new Size(666, 448);
             Controls.Add(customGroupBox2);
             Controls.Add(customGroupBox1);
             Controls.Add(labelDateTime);
             Controls.Add(buttonRejectApproval);
             Controls.Add(buttonApproveApproval);
-            Margin = new Padding(4);
             Name = "ApproveForm";
             Text = "ApproveForm";
             customGroupBox1.ResumeLayout(false);
+            customGroupBox2.ResumeLayout(false);
+            customGroupBox2.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -159,5 +185,8 @@ namespace deepcheesebacon
         private CustomButtonStyle buttonRejectApproval;
         private CustomButtonStyle buttonApproveApproval;
         private CustomGroupBox customGroupBox2;
+        private ListBox listBoxTaskDetail;
+        private Label label1;
+        private TextBox textBoxComment;
     }
 }

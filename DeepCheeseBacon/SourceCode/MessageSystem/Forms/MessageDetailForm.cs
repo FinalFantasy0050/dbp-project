@@ -9,6 +9,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+using WebSocketSharp;
 
 namespace deepcheesebacon
 {
@@ -42,16 +43,25 @@ namespace deepcheesebacon
             foreach (Message message in messageList)
             {
                 string displayMessage;
+                string checkMessage = null;
+                if (message.isChecked)
+                {
+                    checkMessage = "확인함";
+                }
+                else
+                {
+                    checkMessage = "확인안함";
+                }
 
                 if (message.senderId == myinfo.userId)
                 {
-                    displayMessage = $"나: {message.content}";
+                    displayMessage = $"나: {message.content}    {checkMessage}";
                     int spacesCount = Math.Max(0, 50 - displayMessage.Length); // 길이가 음수가 되지 않도록 Math.Max 사용
                     listBoxChatBox.Items.Add(new String(' ', spacesCount) + displayMessage);
                 }
                 else
                 {
-                    displayMessage = $"상대: {message.content}";
+                    displayMessage = $"상대: {message.content}    {checkMessage}";
                     listBoxChatBox.Items.Add(displayMessage);
                 }
 
@@ -64,11 +74,23 @@ namespace deepcheesebacon
 
         private void buttonSendMessage_Click(object sender, EventArgs e)
         {
+            if (textBoxInputMessage.Text.IsNullOrEmpty())
+            {
+                MessageBox.Show("보낼 메시지를 입력해주세요");
+                return;
+            }
+            if (textBoxTitle.Text.IsNullOrEmpty())
+            {
+                MessageBox.Show("제목을 입력해주세요");
+                return;
+            }
+
             dbManager.SaveMessage(new Message
             {
                 senderId = myinfo.userId,
                 receiverId = opponentUserId,
                 content = textBoxInputMessage.Text,
+                title = textBoxTitle.Text,
             });
             LoadMessage();
 
@@ -86,5 +108,9 @@ namespace deepcheesebacon
             LoadMessage();
         }
 
+        private void textBoxInputMessage_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

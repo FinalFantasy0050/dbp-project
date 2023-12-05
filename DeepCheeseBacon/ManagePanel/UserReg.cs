@@ -31,7 +31,7 @@ namespace deepcheesebacon
 
             LoadComboBox();
         }
-        string strconn = "Server=115.85.181.212;Database=s5702003;Uid=s5702003;Pwd=s5702003;Charset=utf8";
+       
 
         // combobox에 department 테이블의 department_name을 로드
         private void LoadComboBox()
@@ -65,40 +65,7 @@ namespace deepcheesebacon
 
         }
 
-        // db에서 department 테이블의 id 값 가져오기
-        private int GetDepId(string depid)
-        {
-            int id = -1;
-
-            try
-            {
-                using (MySqlConnection con = new MySqlConnection(strconn))
-                {
-                    con.Open();
-
-                    string query = "SELECT id FROM department WHERE department_name = @dep_name";
-                    MySqlCommand com = new MySqlCommand(query, con);
-                    com.Parameters.AddWithValue("@dep_name", depid);
-
-                    // ExecuteScalar를 사용하여 결과를 가져옴
-                    object objResult = com.ExecuteScalar();
-
-                    if (objResult != null && objResult != DBNull.Value)
-                    {
-                        id = Convert.ToInt32(objResult);
-                    }
-
-                    con.Close();
-                }
-            }
-            catch (Exception e)
-            {
-                MessageBox.Show("오류발생: " + e.Message);
-            }
-
-            return id;
-        }
-
+      
         // 등록버튼 누르면 db에 정보 저장
         private void regBtn_Click(object sender, EventArgs e)
         {
@@ -111,7 +78,7 @@ namespace deepcheesebacon
             string addr = addrText.Text;
             string date = dateText.Text;
             string depid = comboBox1.Text; // 201, 102
-            int id = GetDepId(depid);
+            int id = dbManager.GetDepId(depid);
             int resultNum = -1; // 초기 값 설정
 
             // 입력한 텍스트박스 확인 후
@@ -137,7 +104,6 @@ namespace deepcheesebacon
             if (resultNum != -1)  // 유효한 enum 값일 경우 db에 저장
             {
                 dbManager.InsertInfo(resultNum, email, pw, name, gender, pnum, addr, id, date);
-                dbManager.InsertSalary(email); //급여내역서에도 직원 입력
             }
 
 

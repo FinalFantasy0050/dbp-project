@@ -488,10 +488,12 @@ CREATE TABLE IF NOT EXISTS approval (
 
             try
             {
-                string query = "SELECT user_id, email FROM user WHERE user_role = 1";
+                string query = "SELECT user_id, email FROM user WHERE user_role = @userRole";
 
                 using (MySqlCommand cmd = new MySqlCommand(query, connection))
                 {
+                    cmd.Parameters.AddWithValue("@userRole", ((int)LoginedUserInfo.loginedUserInfo.role) + 1);
+
                     if (connection.State != ConnectionState.Open)
                     {
                         connection.Open();
@@ -771,8 +773,8 @@ CREATE TABLE IF NOT EXISTS approval (
 
         internal bool SaveMessage(Message message)
         {
-            string query = "INSERT INTO message (sender_id, receiver_id, content, sent_at) " +
-                            "VALUES (@senderId, @receiverId, @content, @sentAt)";
+            string query = "INSERT INTO message (sender_id, receiver_id, content, sent_at, title) " +
+                            "VALUES (@senderId, @receiverId, @content, @sentAt, @title)";
 
             string alertQuery = "INSERT INTO alert (user_id) " +
                         "VALUES (@receiverId)";
@@ -785,6 +787,7 @@ CREATE TABLE IF NOT EXISTS approval (
                     cmd.Parameters.AddWithValue("@receiverId", message.receiverId);
                     cmd.Parameters.AddWithValue("@content", message.content);
                     cmd.Parameters.AddWithValue("@sentAt", message.sentAt);
+                    cmd.Parameters.AddWithValue("@title", message.title);
 
                     if (connection.State != ConnectionState.Open)
                     {
@@ -856,8 +859,14 @@ CREATE TABLE IF NOT EXISTS approval (
                                 senderId = reader.GetInt32("sender_id"),
                                 receiverId = reader.GetInt32("receiver_id"),
                                 content = reader.GetString("content"),
-                                sentAt = reader.GetDateTime("sent_at")
+                                sentAt = reader.GetDateTime("sent_at"),
+                                isChecked = reader.GetBoolean("isChecked") // isChecked 값을 추가
                             };
+
+                            if(message.receiverId == LoginedUserInfo.loginedUserInfo.userId)
+                            {
+                                message.isChecked = true;
+                            }
 
                             messages.Add(message);
                         }
@@ -896,7 +905,348 @@ CREATE TABLE IF NOT EXISTS approval (
             }
         }
 
+        // db에서 department 테이블의 id 값 가져오기
+        public int GetDepId(string depid)
+        {
+            int id = -1;
 
+            try
+            {
+
+                string query = "SELECT id FROM department WHERE department_name = @dep_name";
+                MySqlCommand com = new MySqlCommand(query, connection);
+                com.Parameters.AddWithValue("@dep_name", depid);
+
+                // ExecuteScalar를 사용하여 결과를 가져옴
+                object objResult = com.ExecuteScalar();
+
+                if (objResult != null && objResult != DBNull.Value)
+                {
+                    id = Convert.ToInt32(objResult);
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("오류발생: " + e.Message);
+            }
+
+            return id;
+        }
+
+        // db에서 user 테이블의 user_id 값 가져오기
+        public int GetUserId(string email)
+        {
+            int userid = -1;
+
+            try
+            {
+
+                string query = "SELECT user_id FROM user WHERE email = @email";
+                MySqlCommand com = new MySqlCommand(query, connection);
+                com.Parameters.AddWithValue("@email", email);
+
+                // ExecuteScalar를 사용하여 결과를 가져옴
+                object objResult = com.ExecuteScalar();
+
+                if (objResult != null && objResult != DBNull.Value)
+                {
+                    userid = Convert.ToInt32(objResult);
+                }
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("오류발생: " + e.Message);
+            }
+
+            return userid;
+        }
+
+
+        public string Email(string id)
+        {
+            string email = null;
+            try
+            {
+
+                string query = "SELECT email FROM user WHERE user_id = @id";
+                MySqlCommand com = new MySqlCommand(query, connection);
+                com.Parameters.AddWithValue("@id", id);
+
+                object result = com.ExecuteScalar();
+
+                if (result != null)
+                {
+                    if (email != null)
+                    {
+                        email = result.ToString();
+                    }
+
+                }
+
+                com.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("오류발생: " + e.Message);
+            }
+            return email;
+        }
+
+
+        private string MaskString(string original)
+        {
+            int length = original.Length;
+            // 길이만큼 * 로 바꿈
+            string maskedString = new string('*', length);
+
+            return maskedString;
+        }
+
+        public string Pw(string id)
+        {
+            try
+            {
+
+                string query = "SELECT password FROM user WHERE user_id = @id";
+                MySqlCommand com = new MySqlCommand(query, connection);
+                com.Parameters.AddWithValue("@id", id);
+
+                object result = com.ExecuteScalar();
+
+                if (result != null && result != DBNull.Value)
+                {
+                    // 데이터베이스에서 가져온 값에 대해 마스킹 적용
+                    return MaskString(result.ToString());
+                }
+
+                return string.Empty; // 데이터가 없을 경우 빈 문자열 반환 또는 다른 기본값 설정
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("오류발생: " + e.Message);
+                return string.Empty; // 오류 발생 시 빈 문자열 반환 또는 다른 기본값 설정
+            }
+        }
+
+
+        public string Name(string id)
+        {
+            string name = null;
+            try
+            {
+
+                string query = "SELECT name FROM user WHERE user_id = @id";
+                MySqlCommand com = new MySqlCommand(query, connection);
+                com.Parameters.AddWithValue("@id", id);
+
+                object result = com.ExecuteScalar();
+
+                if (result != null)
+                {
+                    if (name != null)
+                    {
+                        name = result.ToString();
+
+                    }
+
+                }
+
+                com.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("오류발생: " + e.Message);
+            }
+            return name;
+        }
+
+        public string Date(string id)
+        {
+            string date = null;
+            try
+            {
+
+                string query = "SELECT DATE_FORMAT(birthDate,'%Y-%m-%d') FROM user WHERE user_id = @id";
+                MySqlCommand com = new MySqlCommand(query, connection);
+                com.Parameters.AddWithValue("@id", id);
+
+                object result = com.ExecuteScalar();
+
+                if (result != null)
+                {
+                    if (date != null)
+                    {
+                        date = result.ToString();
+                    }
+
+                }
+
+                com.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("오류발생: " + e.Message);
+            }
+            return date;
+        }
+
+        public string Gender(string id)
+        {
+            string gender = null;
+            try
+            {
+
+                string query = "SELECT gender FROM user WHERE user_id = @id";
+                MySqlCommand com = new MySqlCommand(query, connection);
+                com.Parameters.AddWithValue("@id", id);
+
+                object result = com.ExecuteScalar();
+
+                if (result != null)
+                {
+                    gender = result.ToString();
+                }
+
+                com.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("오류발생: " + e.Message);
+            }
+            return gender;
+        }
+
+        public string Role(string id)
+        {
+            string role = null;
+            try
+            {
+
+                string query = "SELECT user_role FROM user WHERE user_id = @id";
+                MySqlCommand com = new MySqlCommand(query, connection);
+                com.Parameters.AddWithValue("@id", id);
+
+                object result = com.ExecuteScalar();
+
+                if (result != null)
+                {
+                    if (role != null)
+                    {
+                        if ((int)result == 0)
+                        {
+                            role = "원장";
+                        }
+                        else if ((int)result == 1)
+                        {
+                            role = "강사";
+                        }
+                        else if ((int)result == 2)
+                        {
+                            role = "보조강사";
+                        }
+                    }
+
+
+                }
+
+                com.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("오류발생: " + e.Message);
+            }
+            return role;
+        }
+
+        public string Dep(string id)
+        {
+            string dep = null;
+            try
+            {
+
+                string query = "SELECT department_name FROM department WHERE id IN (SELECT department FROM user WHERE user_id = @id)";
+                MySqlCommand com = new MySqlCommand(query, connection);
+                com.Parameters.AddWithValue("@id", id);
+
+                object result = com.ExecuteScalar();
+
+                if (result != null)
+                {
+                    if (dep != null)
+                    {
+                        dep = result.ToString();
+                    }
+
+                }
+
+                com.ExecuteNonQuery();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("오류발생: " + e.Message);
+            }
+            return dep;
+        }
+        public string Pnum(string id)
+        {
+            string pnum = null;
+            try
+            {
+
+                string query = "SELECT phone_number FROM user WHERE user_id = @id";
+                MySqlCommand com = new MySqlCommand(query, connection);
+                com.Parameters.AddWithValue("@id", id);
+
+                object result = com.ExecuteScalar();
+
+                if (result != null)
+                {
+                    pnum = result.ToString();
+                }
+
+                com.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("오류발생: " + e.Message);
+            }
+            return pnum;
+        }
+
+        public string Addr(string id)
+        {
+            string addr = null;
+            try
+            {
+
+                string query = "SELECT address FROM user WHERE user_id = @id";
+                MySqlCommand com = new MySqlCommand(query, connection);
+                com.Parameters.AddWithValue("@id", id);
+
+                object result = com.ExecuteScalar();
+
+                if (result != null)
+                {
+                    addr = result.ToString();
+                }
+
+                com.ExecuteNonQuery();
+
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("오류발생: " + e.Message);
+            }
+            return addr;
+        }
 
         // 콤보박스에 가져올 값 list에 넣음
         public List<string> GetDepartment()
@@ -1180,9 +1530,26 @@ CREATE TABLE IF NOT EXISTS approval (
 
                 return ds; // 빈 DataSet 반환 또는 필요에 따라 null 반환
             }
-            
+
         }
 
+        public DataSet ViewTableAttend(int userid)
+        {
+            DataSet ds = new DataSet();
+
+
+            string query = "SELECT attendDate, check_in_time, check_out_time FROM AttendanceLog WHERE user_id = @id ";
+            MySqlCommand com = new MySqlCommand(query, connection);
+            com.Parameters.AddWithValue("@id", userid);
+
+            using (MySqlDataAdapter da = new MySqlDataAdapter(com))
+            {
+                da.Fill(ds);
+            }
+
+            return ds;
+
+        }
 
         // 사원 수정에서 수정버튼 누를 경우 
         public void UserModify(int role, string email, string pw, string name, string gender, string pnum, string addr, int id, string date)
@@ -1416,9 +1783,13 @@ CREATE TABLE IF NOT EXISTS approval (
                                 senderId = reader.GetInt32("sender_id"),
                                 receiverId = reader.GetInt32("receiver_id"),
                                 content = reader.GetString("content"),
-                                sentAt = reader.GetDateTime("sent_at")
+                                sentAt = reader.GetDateTime("sent_at"),
+                                isChecked = reader.GetBoolean("isChecked"),
                             };
-
+                            if (message.receiverId == LoginedUserInfo.loginedUserInfo.userId)
+                            {
+                                message.isChecked = true;
+                            }
                             messages.Add(message);
                         }
                     }
@@ -1487,8 +1858,6 @@ CREATE TABLE IF NOT EXISTS approval (
                 {
                     da.Fill(ds);
                 }
-
-                return ds;
             }
             catch (Exception e)
             {
@@ -1533,13 +1902,14 @@ CREATE TABLE IF NOT EXISTS approval (
         }
 
         // 급여내역서 user 등록
-        public void InsertSalary(string user_id)
+        public void InsertSalary(int user_id, int month)
         {
             try
             {
-                string query = "INSERT INTO sert_salary (email) VALUES (@user_id)";
+                string query = "INSERT INTO sert_salary (email, monthofdate) VALUES (@user_id, @month)";
                 MySqlCommand com = new MySqlCommand(query, connection);
                 com.Parameters.AddWithValue("@user_id", user_id);
+                com.Parameters.AddWithValue("@month", month);
 
                 com.ExecuteNonQuery();
             }
@@ -1550,15 +1920,16 @@ CREATE TABLE IF NOT EXISTS approval (
         }
 
         // 총 급여, 기본급 return
-        public (int gross_pay, int base_pay) Getsalary(int userid)
+        public (int gross_pay, int base_pay) Getsalary(int userid, int month)
         {
             try
             {
                 int gross_pay = 0, base_pay = 0;  // Initialize variables
 
-                string query = "SELECT gross_pay, base_pay FROM sert_salary WHERE user_id = @name";
+                string query = "SELECT gross_pay, base_pay FROM sert_salary WHERE user_id = @name AND monthofdate = @month";
                 MySqlCommand com = new MySqlCommand(query, connection);
                 com.Parameters.AddWithValue("@name", userid);
+                com.Parameters.AddWithValue("@monthofdate", month);
                 MySqlDataReader reader = com.ExecuteReader();
 
                 while (reader.Read())
@@ -1584,13 +1955,14 @@ CREATE TABLE IF NOT EXISTS approval (
         }
 
         // 급여 입력
-        public void InsertPay(int userid, int gross_pay, int base_pay, int n_pension, int n_hinsurance, int n_long_hinsurance, int e_insurance, int net_pay)
+        public void InsertPay(int userid, int gross_pay, int base_pay, int n_pension, int n_hinsurance, int n_long_hinsurance, int e_insurance, int net_pay, int month)
         {
             try
             {
-                string query = "UPDATE sert_salary SET gross_pay = @gross_pay AND base_pay = @base_pay AND n_pension = @n_pension AND n_hinsurance = @n_hinsurance AND n_long_hinsurance = @n_long_hinsurance AND e_insurance = @e_insurance AND net_pay = @net_pay WHERE user_id = @name";
+                string query = "UPDATE sert_salary SET gross_pay = @gross_pay AND base_pay = @base_pay AND n_pension = @n_pension AND n_hinsurance = @n_hinsurance AND n_long_hinsurance = @n_long_hinsurance AND e_insurance = @e_insurance AND net_pay = @net_pay WHERE user_id = @name AND monthofdate = @month";
                 MySqlCommand com = new MySqlCommand(query, connection);
                 com.Parameters.AddWithValue("@userid", userid);
+                com.Parameters.AddWithValue("@month", month);
                 com.Parameters.AddWithValue("@gross_pay", gross_pay);
                 com.Parameters.AddWithValue("@base_pay", base_pay);
                 com.Parameters.AddWithValue("@n_pension", n_pension);
@@ -1606,6 +1978,7 @@ CREATE TABLE IF NOT EXISTS approval (
                 MessageBox.Show("InsertPay 오류발생: " + e.Message);
             }
         }
+
 
     }
 }
