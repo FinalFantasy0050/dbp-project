@@ -339,7 +339,6 @@ C:\Users\jhj07\OneDrive\바탕 화면\DBP\dbp-project\deepcheesebacon\obj\Debug\
 C:\Users\jhj07\OneDrive\바탕 화면\DBP\dbp-project\deepcheesebacon\obj\Debug\net6.0-windows\deepcheesebacon.realtimeChatRobby.resources
 C:\Users\jhj07\OneDrive\바탕 화면\DBP\dbp-project\deepcheesebacon\obj\Debug\net6.0-windows\deepcheesebacon.UIForm.resources
 C:\Users\jhj07\OneDrive\바탕 화면\DBP\dbp-project\deepcheesebacon\obj\Debug\net6.0-windows\deepcheesebacon.WorkForm.resources
-C:\Users\jhj07\OneDrive\바탕 화면\DBP\dbp-project\deepcheesebacon\obj\Debug\net6.0-windows\deepcheesebacon.Work.WorkManager.resources
 C:\Users\jhj07\OneDrive\바탕 화면\DBP\dbp-project\deepcheesebacon\obj\Debug\net6.0-windows\deepcheesebacon.WorkMasterForm.resources
 C:\Users\jhj07\OneDrive\바탕 화면\DBP\dbp-project\deepcheesebacon\obj\Debug\net6.0-windows\deepcheesebacon.csproj.GenerateResource.cache
 C:\Users\jhj07\OneDrive\바탕 화면\DBP\dbp-project\deepcheesebacon\obj\Debug\net6.0-windows\deepcheesebacon.GeneratedMSBuildEditorConfig.editorconfig
@@ -357,3 +356,4 @@ C:\Users\User\Documents\GitHub\DeepCheeseBacon\dbp-project\deepcheesebacon\obj\D
 C:\Users\User\Documents\GitHub\DeepCheeseBacon\dbp-project\deepcheesebacon\obj\Debug\net6.0-windows\deepcheesebacon.Customizing.CustomComboBox.resources
 C:\Users\User\Documents\GitHub\DeepCheeseBacon\dbp-project\deepcheesebacon\obj\Debug\net6.0-windows\deepcheesebacon.Customizing.CustomTextBox.resources
 C:\Users\User\Documents\GitHub\DeepCheeseBacon\dbp-project\deepcheesebacon\obj\Debug\net6.0-windows\deepcheesebacon.SourceCode.ApprovalSystem.Forms.RealNameChatRobbyForm.resources
+C:\Users\jhj07\OneDrive\바탕 화면\DBP\dbp-project\deepcheesebacon\obj\Debug\net6.0-windows\deepcheesebacon.SourceCode.ApprovalSystem.Forms.RealNameChatRobbyForm.resources

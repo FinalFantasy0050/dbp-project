@@ -617,7 +617,8 @@ CREATE TABLE IF NOT EXISTS approval (
                            "   WHEN status = 1 THEN '승인됨' " +
                            "   WHEN status = 2 THEN '반려됨' " +
                            "   ELSE '알 수 없음' " +
-                           "END AS status " +
+                           "END AS status, " +
+                           "memo " +
                            "FROM approval " +
                            "WHERE request_id = @myId";
 
@@ -639,6 +640,7 @@ CREATE TABLE IF NOT EXISTS approval (
 
                         dt.Columns["status"].ColumnName = "결재 상태";
                         dt.Columns["title"].ColumnName = "결재 제목";
+                        dt.Columns["memo"].ColumnName = "반려 메모";
 
                         InitializeDataGridView(dataGridViewApprovalList);
                         dataGridViewApprovalList.DataSource = dt;
@@ -1850,7 +1852,7 @@ CREATE TABLE IF NOT EXISTS approval (
 
             try
             {
-                string query = "SELECT * FROM sert_salary WHERE monthofdate = @month";
+                string query = "SELECT user_id AS 아이디, gross_pay AS 총급여, base_pay AS 기본급, n_pension AS 국민연금공제, n_hinsurance AS 국민건강보험공제, n_long_hinsurance AS 장기요양공제, e_insurance AS 고용보험료공제, net_pay AS 순급여 FROM sert_salary WHERE monthofdate = @month";
                 MySqlCommand com = new MySqlCommand(query, connection);
                 com.Parameters.AddWithValue("@month", month);
 

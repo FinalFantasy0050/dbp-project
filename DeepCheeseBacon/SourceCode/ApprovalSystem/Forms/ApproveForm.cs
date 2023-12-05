@@ -54,7 +54,7 @@ namespace deepcheesebacon
 
             foreach (Approval approval in pendingApprovalList)
             {
-                if (approval.Id.Equals(((PendingApprovalItem)listBoxTaskRequiringMyApprovalList.SelectedItem).ApprovalId))
+                if (approval.Id.Equals(((Approval)listBoxTaskRequiringMyApprovalList.SelectedItem).Id))
                 {
                     selectedApproval = approval;
                 }
@@ -121,7 +121,7 @@ namespace deepcheesebacon
             {
                 // 사용자가 폼에서 OK 버튼을 눌렀을 때 메모를 가져옴
                 memo = rejectForm.GetMemo(); // GetMemo는 RejectForm에서 메모를 반환하는 메서드로 가정
-                approvalId = ((PendingApprovalItem)listBoxTaskRequiringMyApprovalList.SelectedItem).ApprovalId;
+                approvalId = ((Approval)listBoxTaskRequiringMyApprovalList.SelectedItem).Id;
                 approvalService.RejectRequest(new ApprovalRejectRequest()
                 {
                     ApprovalId = approvalId,

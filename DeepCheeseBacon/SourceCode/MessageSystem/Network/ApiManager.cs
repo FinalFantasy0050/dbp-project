@@ -115,7 +115,7 @@ namespace deepcheesebacon
                 Console.WriteLine("GetChatSecretRoomsAsync API GET 실행");
 
                 // 서버의 ChatController에 GET 요청을 보냄
-                HttpResponseMessage response = await client.GetAsync(testUrl);
+                HttpResponseMessage response = await client.GetAsync(url);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -167,7 +167,7 @@ namespace deepcheesebacon
 
                 Console.WriteLine("api 실행");
                 // 서버의 ChatController에 POST 요청을 보냄
-                HttpResponseMessage response = await client.PostAsync(testUrl,
+                HttpResponseMessage response = await client.PostAsync(url,
                     new StringContent(jsonContent, Encoding.UTF8, "application/json"));
 
                 if (response.IsSuccessStatusCode)

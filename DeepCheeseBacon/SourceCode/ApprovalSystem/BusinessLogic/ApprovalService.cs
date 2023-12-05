@@ -74,32 +74,26 @@ namespace deepcheesebacon
                 // 승인 상태로 수정
                 approval.Status = Approval.ApprovalStatus.Rejected;
 
-                // 권한 상태 수정 
+                // 권한 상태 수정 // 승인자 수정
                 switch (approval.RoleStatus)
                 {
 
                     case Role.FirstApprover:
                         approval.RoleStatus = Role.Requester;
+                        approval.ApproverId = approval.RequestId;
+
                         break;
                     case Role.SecondApprover:
                         approval.RoleStatus = Role.FirstApprover;
+                        approval.ApproverId = approval.FirstApproverId;
+
                         break;
                 }
 
-                // 승인자 수정
-                switch (approval.RoleStatus)
-                {
-                    case Role.FirstApprover:
-                        approval.ApproverId = approval.RequestId;
-                        break;
-                    case Role.SecondApprover:
-                        approval.ApproverId = approval.FirstApproverId;
-                        break;
-                }
 
                 // 반려 시 메모 사항 저장
                 approval.Memo = request.Memo;
-                Console.WriteLine("reject approval memo: " + approval.Memo);
+                Console.WriteLine("reject approval memo: " + approval.Memo + "approver id: " + approval.ApproverId );
 
                 dB.SaveOrUpdateApproval(approval);
             }

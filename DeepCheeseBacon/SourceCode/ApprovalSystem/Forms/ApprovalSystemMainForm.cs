@@ -42,6 +42,9 @@ namespace deepcheesebacon
             LoadDataGridViewTaskSummary();
         }
 
-
+        private void dataGridViewApprovalList_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+        }
     }
 }

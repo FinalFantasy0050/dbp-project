@@ -52,10 +52,9 @@ partial class ApprovalSystemMainForm
         buttonCreateNewApproval.FlatStyle = FlatStyle.Flat;
         buttonCreateNewApproval.Font = new Font("맑은 고딕", 12F, FontStyle.Bold, GraphicsUnit.Point);
         buttonCreateNewApproval.ForeColor = Color.White;
-        buttonCreateNewApproval.Location = new Point(301, 561);
-        buttonCreateNewApproval.Margin = new Padding(4);
+        buttonCreateNewApproval.Location = new Point(243, 418);
         buttonCreateNewApproval.Name = "buttonCreateNewApproval";
-        buttonCreateNewApproval.Size = new Size(161, 42);
+        buttonCreateNewApproval.Size = new Size(125, 32);
         buttonCreateNewApproval.TabIndex = 21;
         buttonCreateNewApproval.Text = "신규 결재 등록";
         buttonCreateNewApproval.TextColor = Color.White;
@@ -72,10 +71,9 @@ partial class ApprovalSystemMainForm
         buttonCheckMyApprovalList.FlatStyle = FlatStyle.Flat;
         buttonCheckMyApprovalList.Font = new Font("맑은 고딕", 10F, FontStyle.Bold, GraphicsUnit.Point);
         buttonCheckMyApprovalList.ForeColor = Color.White;
-        buttonCheckMyApprovalList.Location = new Point(743, 562);
-        buttonCheckMyApprovalList.Margin = new Padding(4);
+        buttonCheckMyApprovalList.Location = new Point(578, 422);
         buttonCheckMyApprovalList.Name = "buttonCheckMyApprovalList";
-        buttonCheckMyApprovalList.Size = new Size(195, 42);
+        buttonCheckMyApprovalList.Size = new Size(152, 32);
         buttonCheckMyApprovalList.TabIndex = 4;
         buttonCheckMyApprovalList.Text = "나의 결재 리스트 확인";
         buttonCheckMyApprovalList.TextColor = Color.White;
@@ -85,34 +83,31 @@ partial class ApprovalSystemMainForm
         // dataGridViewApprovalList
         // 
         dataGridViewApprovalList.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridViewApprovalList.Location = new Point(8, 48);
-        dataGridViewApprovalList.Margin = new Padding(4);
+        dataGridViewApprovalList.Location = new Point(6, 36);
         dataGridViewApprovalList.Name = "dataGridViewApprovalList";
         dataGridViewApprovalList.RowHeadersWidth = 51;
         dataGridViewApprovalList.RowTemplate.Height = 25;
-        dataGridViewApprovalList.Size = new Size(430, 410);
+        dataGridViewApprovalList.Size = new Size(334, 308);
         dataGridViewApprovalList.TabIndex = 5;
+        dataGridViewApprovalList.CellContentClick += dataGridViewApprovalList_CellContentClick;
         // 
         // dataGridViewTaskSummary
         // 
         dataGridViewTaskSummary.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        dataGridViewTaskSummary.Location = new Point(11, 48);
-        dataGridViewTaskSummary.Margin = new Padding(4);
+        dataGridViewTaskSummary.Location = new Point(9, 36);
         dataGridViewTaskSummary.Name = "dataGridViewTaskSummary";
         dataGridViewTaskSummary.RowHeadersWidth = 51;
-        dataGridViewTaskSummary.Size = new Size(430, 410);
+        dataGridViewTaskSummary.Size = new Size(334, 308);
         dataGridViewTaskSummary.TabIndex = 6;
         // 
         // customGroupBox1
         // 
         customGroupBox1.BackColor = Color.Transparent;
         customGroupBox1.Controls.Add(dataGridViewApprovalList);
-        customGroupBox1.Location = new Point(13, 82);
-        customGroupBox1.Margin = new Padding(4);
+        customGroupBox1.Location = new Point(10, 62);
         customGroupBox1.Name = "customGroupBox1";
-        customGroupBox1.Padding = new Padding(4);
         customGroupBox1.Radious = 25;
-        customGroupBox1.Size = new Size(449, 466);
+        customGroupBox1.Size = new Size(349, 350);
         customGroupBox1.TabIndex = 27;
         customGroupBox1.TabStop = false;
         customGroupBox1.Text = "진행 중인 결재 목록";
@@ -125,12 +120,10 @@ partial class ApprovalSystemMainForm
         // 
         customGroupBox2.BackColor = Color.Transparent;
         customGroupBox2.Controls.Add(dataGridViewTaskSummary);
-        customGroupBox2.Location = new Point(489, 82);
-        customGroupBox2.Margin = new Padding(4);
+        customGroupBox2.Location = new Point(380, 62);
         customGroupBox2.Name = "customGroupBox2";
-        customGroupBox2.Padding = new Padding(4);
         customGroupBox2.Radious = 25;
-        customGroupBox2.Size = new Size(449, 466);
+        customGroupBox2.Size = new Size(349, 350);
         customGroupBox2.TabIndex = 28;
         customGroupBox2.TabStop = false;
         customGroupBox2.Text = "결재 업무 요약";
@@ -141,14 +134,13 @@ partial class ApprovalSystemMainForm
         // 
         // ApprovalSystemMainForm
         // 
-        AutoScaleDimensions = new SizeF(9F, 20F);
+        AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(951, 616);
+        ClientSize = new Size(740, 462);
         Controls.Add(customGroupBox2);
         Controls.Add(customGroupBox1);
         Controls.Add(buttonCheckMyApprovalList);
         Controls.Add(buttonCreateNewApproval);
-        Margin = new Padding(4);
         Name = "ApprovalSystemMainForm";
         Text = "ApprovalSystemMainForm";
         ((System.ComponentModel.ISupportInitialize)dataGridViewApprovalList).EndInit();
