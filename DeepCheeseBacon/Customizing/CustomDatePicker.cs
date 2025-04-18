@@ -14,7 +14,6 @@ namespace deepcheesebacon.Customizing
         //Fields
         //-> Appearance
         private Color skinColor = Color.MediumSlateBlue;
-        private Color textColor = Color.White;
         private Color borderColor = Color.PaleVioletRed;
         private int borderSize = 0;
 
