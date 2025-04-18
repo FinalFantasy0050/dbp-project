@@ -17,7 +17,6 @@ namespace deepcheesebacon
 
         public LoginForm()
         {
-            InitializeComponent();
             dbManager = DBManager.GetInstance();
             LoginData loginData = dbManager.GetLoginData();
             if (loginData != null && loginData.isAutoLoad)
