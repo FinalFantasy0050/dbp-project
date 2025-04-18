@@ -13,7 +13,6 @@ namespace deepcheesebacon.Customizing
         {
             DoubleBuffered = true;
             TitleBackColor = Color.SteelBlue;
-            TitleForeColor = Color.White;
             TitleFont = new Font(Font.FontFamily, Font.Size + 8, FontStyle.Bold);
             BackColor = Color.Transparent;
             Radious = 25;

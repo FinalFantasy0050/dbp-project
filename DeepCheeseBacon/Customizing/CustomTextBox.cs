@@ -15,7 +15,6 @@ namespace deepcheesebacon.Customizing
     public partial class CustomTextBox : UserControl
     {
         //Fields
-        private Color borderColor = Color.MediumSlateBlue;
         private Color borderFocusColor = Color.HotPink;
         private int borderSize = 2;
         private bool underlinedStyle = false;

@@ -11,7 +11,6 @@ using System.Drawing.Design;
 
 namespace deepcheesebacon.Customizing
 {
-    [DefaultEvent("OnSelectedIndexChanged")]
     class CustomComboBox : ComboBox
     {
         //Fields
