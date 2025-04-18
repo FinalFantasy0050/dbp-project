@@ -12,7 +12,6 @@ namespace deepcheesebacon.Customizing
     public class ImageButton : Panel
     {
         private Image image01 = SystemIcons.Hand.ToBitmap();
-        private Image image02 = SystemIcons.Hand.ToBitmap();
 
         [Browsable(true)]
         public Image Image_01
