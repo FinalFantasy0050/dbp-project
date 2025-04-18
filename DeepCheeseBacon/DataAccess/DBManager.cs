@@ -18,8 +18,7 @@ namespace deepcheesebacon
     public class DBManager
     {
         private static DBManager dB = new DBManager();
-        MySqlConnection connection;
-        LoginedUserInfo myInfo = LoginedUserInfo.GetMyInfo();
+   LoginedUserInfo myInfo = LoginedUserInfo.GetMyInfo();
 
         private DBManager()
         {
