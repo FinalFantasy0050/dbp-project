@@ -13,7 +13,6 @@ namespace deepcheesebacon.Customizing
     internal class CustomButtonStyle : Button
     {
         //Fields
-        private int borderSize = 0;
         private int borderRadius = 20;
         private Color borderColor = Color.PaleVioletRed;
 
